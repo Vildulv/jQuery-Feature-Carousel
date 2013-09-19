@@ -169,9 +169,9 @@
       });
 
       // Determine the total border width around the feature if there is one
-      if (pluginData.featuresContainer.find(".carousel-feature").first().css("borderLeftWidth") != "medium") {
+     /* if (pluginData.featuresContainer.find(".carousel-feature").first().css("borderLeftWidth") != "medium") {
         pluginData.borderWidth = parseInt(pluginData.featuresContainer.find(".carousel-feature").first().css("borderLeftWidth"))*2;
-      }
+      } */
 
       // Place all the features in a center hidden position to start off
       pluginData.featuresContainer
@@ -183,7 +183,7 @@
             'width': pluginData.smallFeatureWidth,
             'height': pluginData.smallFeatureHeight,
             'top': options.smallFeatureOffset + options.topPadding,
-            'opacity': 0
+           // 'opacity': 0
           });
         })
         // Set all the images to small feature size
@@ -382,9 +382,9 @@
         new_left = (pluginData.containerWidth / 2) - (pluginData.largeFeatureWidth / 2) - (pluginData.borderWidth / 2);
         new_fade = 1.0;
       } else {
-        new_width = pluginData.smallFeatureWidth;
-        new_height = pluginData.smallFeatureHeight;
-        new_top = options.smallFeatureOffset + options.topPadding;
+        //new_width = pluginData.smallFeatureWidth;
+        //new_height = pluginData.smallFeatureHeight;
+        //new_top = options.smallFeatureOffset + options.topPadding;
         new_zindex = 1;
         new_fade = 0.4;
         // some info is different for the left, right, and hidden positions
@@ -411,11 +411,11 @@
       $feature
         .animate(
           {
-            width: new_width,
-            height: new_height,
-            top: new_top,
+            //width: new_width,
+            //height: new_height,
+            //top: new_top,
             left: new_left,
-            opacity: new_fade
+            //opacity: new_fade
           },
           options.carouselSpeed,
           options.animationEasing,
@@ -472,8 +472,8 @@
         .find('.carousel-image')
           // animate its size down
           .animate({
-            width: new_width,
-            height: new_height
+            //width: new_width,
+            //height: new_height
           },
           options.carouselSpeed,
           options.animationEasing)
@@ -515,10 +515,7 @@
       } else {
         $newRight.css("z-index", 3);
       }
-      $newCenter.css("z-index", 4);
-      
-      // Fire moving to center event
-      options.movingToCenter($newCenter);
+      $newCenter.css({"z-index":4,"border-left":"1px solid #D2D2D2","border-right":"1px solid #D2D2D2"});
 
       // Animate the features into their new positions
       animateFeature($newLeft, direction);
@@ -565,15 +562,15 @@
     }
 
     // Move to the left if left button clicked
-    $(options.leftButtonTag).on('click',function () {
+    $(options.leftButtonTag).live('click',function () {
       initiateMove(false,1);
     });
 
     // Move to right if right button clicked
-    $(options.rightButtonTag).on('click',function () {
+    $(options.rightButtonTag).live('click',function () {
       initiateMove(true,1);
     });
-
+  /*
     // These are the click and hover events for the features
     pluginData.featuresContainer.find(".carousel-feature")
       .click(function () {
@@ -608,10 +605,10 @@
           setTimer(false);
         }
       });
-
+    */
     // Add event listener to all clicks within the features container
     // This is done to disable any links that aren't within the center feature
-    $("a", pluginData.containerIDTag).on("click", function (event) {
+   /* $("a", pluginData.containerIDTag).live("click", function (event) {
       // travel up to the container
       var $parents = $(this).parentsUntil(pluginData.containerIDTag);
       // now check each of the feature divs within it
@@ -636,10 +633,10 @@
           }
         }
       });
-    });
+    }); */
 
     // Did someone click one of the individual trackers?
-    $(".tracker-individual-blip",  pluginData.containerIDTag).on("click",function () {
+    $(".tracker-individual-blip",  pluginData.containerIDTag).live("click",function () {
       // grab the position # that was clicked
       var goTo = $(this).attr("id").substring(8);
       // find out where that feature # actually is in the carousel right now
@@ -747,9 +744,7 @@
     // callback function for when feature left center
     leavingCenter:        $.noop,
     // callback function for when center feature was clicked
-    clickedCenter:        $.noop,
-    // callback function for when a feature has start moving to center
-    movingToCenter:       $.noop
+    clickedCenter:        $.noop
   };
   
 })(jQuery);
